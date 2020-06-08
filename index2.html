@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    .item {
+      display: inline-block;
+      background: #eee; padding: 5px 10px;
+      margin: 10px; cursor: pointer;
+    }
+    .on {
+      color: orange; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id='app'>
+    <my-bet :list='list' v-model='index'></my-bet>
+    <h2>你选择的结果是：<span v-text='rate.title'></span></h2>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="text/javascript">
+  Vue.component('my-bet', {
+    props: {
+      list: {
+        type: Array,
+        required: true
+      },
+      value: {
+        type: Number,
+        required: true
+      }
+    },
+    template: `
+    <div>
+      <div v-for='(item,index) in list' :key='index'>
+        <div v-text='item.title'></div>
+        <div v-for='(item,index) in item.list' :key='index'>
+          <span class='item' v-text='item.title'></span>
+          <span
+            class='item'
+            v-for='item in item.list'
+            v-text='item.title'
+            :key='item.id'
+            :class='{"on":value==item.id}'
+            @click='change(item)'>
+          </span>
+        </div>
+      </div>
+    </div>
+    `,
+    methods: {
+      change: function(item) {
+        this.$emit('input', item.id)
+      }
+    }
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      list: [
+        {
+          title: '标赔',
+          list: [
+            {
+              title: 'A',
+              list: [{id:1,title:'1.01'}, {id:2,title: '1.02'}, {id:3,title:'1.03'}]
+            }
+          ]
+        },
+        {
+          title: '让球',
+          list: [
+            {
+              title: 'B',
+              list: [{id:4,title:'1.04'}, {id:5,title: '1.05'}, {id:6,title:'1.06'}],
+            },
+            {
+              title: 'C',
+              list: [{id:7,title:'1.07'}, {id:8,title: '1.08'}, {id:9,title:'1.09'}]
+            }
+          ]
+        }
+      ],
+      index: 1
+    },
+    computed: {
+      rate: function() {
+        var rate = 0
+        this.list.map(ele=>{
+          ele.list.map(ele=>{
+            ele.list.map(ele=>{
+              if(ele.id == this.index) rate = ele
+            })
+          })
+        })
+        return rate
+      }
+    }
+  })
+  </script>
+</body>
+</html>
