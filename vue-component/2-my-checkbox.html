@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+    <my-checkbox :list='list' v-model='students'></my-checkbox>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-checkbox', {
+      props: {
+        value: {
+          type: Array,
+          require: false,
+          default: []
+        },
+        list: {
+          type: Array,
+          require: true
+        }
+      },
+      created() {
+        // 改造父组件传递过来的列表数据
+        let list = this.list
+        list.map((ele,idx)=>{
+          // 在value数组中查找当前同学是否存在，如果存在给它加上checked=true
+          var index = this.value.findIndex(item=>item==ele.id)
+          if(index >= 0) {
+            list[idx].checked = true
+          } else {
+            list[idx].checked = false
+          }
+        })
+        console.log('改造后list', list)
+        this.list = list
+      },
+      template: `
+      <div>
+        <span v-for='(ele,idx) in list'>
+          <input type="checkbox" :value="ele.id" :checked='ele.checked' @change='change(idx,$event)'>
+          <span v-text='ele.name'></span>
+        </span>
+      </div>`,
+      methods: {
+        change(idx,e) {
+
+          // 第一种写法
+          // 根据用户的选择，切换list数组中的当前元素的选中状态
+          this.list[idx].checked = e.target.checked
+          var arr = []
+          this.list.map(ele=>{
+            if(ele.checked) {
+              arr.push(ele.id)
+            }
+          })
+          this.$emit('input', arr)
+
+          // 第二种写法
+          // let arr = this.value
+          // if (e.target.checked) {
+          //   arr.push(parseInt(e.target.value))
+          // } else {
+          //   var index = arr.findIndex(item=>item==e.target.value)
+          //   arr.splice(index, 1)
+          // }
+          // console.log('选择后的结果', arr)
+          // this.$emit('input', arr)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        list: [
+          {id: 1, name: '杨虎'},
+          {id: 2, name: '谢明强'},
+          {id: 3, name: '刘明珠'},
+          {id: 4, name: '黄俊峰'},
+          {id: 5, name: '蒋小梅'}
+        ],
+        students: [1,3]
+      }
+    })
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <div id='app1'>
+    <my-global-component></my-global-component>
+    <h1 v-text='msg'></h1>
+  </div>
+
+  <hr>
+
+  <div id='app2'>
+    <my-global-component></my-global-component>
+    <h1 v-text='msg' @click='click'></h1>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 全局混入
+    Vue.mixin({
+      created() {
+        console.log('created')
+      },
+      mounted() {
+        console.log('mounted')
+      },
+      data: function() {
+        return {
+          msg: 1
+        }
+      },
+      methods: {
+        click() {
+          alert('全局混入的click方法')
+        }
+      }
+    })
+
+
+    // 全局组件
+    Vue.component('my-global-component', {
+      template: `<h1>全局组件 <span v-text='msg'></span></h1>`
+    })
+
+    var app1 = new Vue({
+      el: '#app1',
+      data: {
+        msg: 2
+      }
+    })
+
+    var app2 = new Vue({
+      el: '#app2',
+      methods: {
+        click() {
+          alert('这是我自己的click方法')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

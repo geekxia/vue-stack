@@ -1,0 +1,33 @@
+<script type="text/javascript">
+
+  // 第一种定义对象的方式
+  var obj1 = {
+    msg: 1,
+    name: 2
+  }
+
+
+
+  // 第二种定义对象的方式
+  var obj2 = {}
+  Object.defineProperty(obj2, 'msg', {
+    get: function() {
+      return value
+    },
+    set: function(arg) {
+      value = arg
+    }
+  })
+  Object.defineProperty(obj2, 'name', {
+    get: function() {
+      console.log('触发了getter')
+      return value
+    },
+    set: function(arg) {
+      value = arg
+      console.log('触发了setter')
+    }
+  })
+
+
+</script>

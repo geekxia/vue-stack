@@ -1,0 +1,118 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background: #cdcdcd;
+}
+
+.app {
+
+}
+
+
+.app_bar {
+  height: 50px;
+  background: rgba(47, 47, 47, 0.9);
+  line-height: 50px;
+}
+.app_bar>div {
+  width: 600px;
+  margin: 0 auto;
+  height: 100%;
+  overflow: hidden;
+}
+.app_bar>div>span {
+  float: left;
+  color: #ddd;
+  font-size: 24px;
+}
+.app_bar>div>input {
+  float: right;
+  width: 60%;
+  height: 24px;
+  margin-top: 12px;
+  text-indent: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+  border: none;
+  font-size: 16px;
+}
+
+
+.panel {
+  width: 600px;
+  margin: 0 auto;
+}
+.panel_title {
+  line-height: 70px;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-right: 5px;
+}
+.panel_title>span:nth-child(1) {
+  font-size: 28px;
+}
+.panel_title>span:nth-child(2) {
+  float: right;
+  height: 20px;
+  width: 20px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #E6E6FA;
+  line-height: 22px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-top: 30px;
+}
+.panel_list {
+  height: 32px;
+  line-height: 32px;
+  background: #fff;
+  margin-bottom: 10px;
+  padding:0 10px;
+  border-radius: 3px;
+  border-left: 5px solid #629A9C;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.panel_list>span:nth-child(1) {
+  float: left;
+  width: 26px;
+  height: 26px;
+  background: url(./icon/todo.png) no-repeat center center / 20px 20px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+.panel_list-done>span:nth-child(1) {
+  background: url(./icon/done.png) no-repeat center center / 20px 20px;
+}
+.panel_list>span:nth-child(2) {
+  float: left;
+  margin-left: 10px;
+  width: 400px;
+}
+.panel_list>span:nth-child(2) input {
+  /* display: block; */
+  width: 100%;
+  padding: 0 10px;
+  font-size: 16px;
+  border: none;
+  line-height: 32px;
+}
+.panel_list>span:nth-child(3) {
+  float: right;
+  width: 26px;
+  height: 26px;
+  background: url(./icon/delete.png) no-repeat center center / 20px 20px;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+
+.app_bot {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}

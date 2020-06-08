@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+  html,body {
+    padding: 0;
+    margin: 0;
+    background: #eee;
+    width: 100%;height: 100%;overflow: hidden;
+  }
+  /* 弹框组件 */
+  .model {
+    position:absolute;
+    width:420px;
+    top: 50px;
+    left: 50%;
+    margin-left: -210px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    background-color: white;
+  }
+  .model .top {
+    line-height: 35px;
+    height: 35px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .model .top span:last-child {
+    float: right;
+    cursor: pointer;
+  }
+  .model .bot {
+    line-height: 30px;
+    height: 30px;
+    overflow: hidden;
+    text-align: right;
+  }
+  .model .bot span {
+    display: inline-block;
+    width: 55px;
+    text-align: center;
+    background-color: rgb(102, 177, 255);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .model .mid {
+    min-height: 40px;
+    padding: 20px 0;
+    box-sizing: border-box;
+  }
+  .model .mid input {
+    display: block;
+    height: 40px;
+    border-color: #ccc;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border: 1px solid #ccc;
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin: 10px 0;
+  }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+<body>
+
+  <div id='app'>
+
+    <button @click='showModel'>弹框</button>
+
+    <my-model :show='show' @close='close' @confirm='confirm'>
+      <div>你确定退出登录吗？</div>
+    </my-model>
+
+    <!-- <my-model :show='show' @close='close' @confirm='confirm'>
+      <input type="text" v-model='username' placeholder='请输入你的用户名'/>
+    </my-model> -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-model', {
+      props: {
+        show: {
+          type: Boolean,
+          require: false,
+          default: false
+        }
+      },
+      template: `
+      <div class='model animated bounceInUp' v-show='show'>
+
+        <div class='top'>
+          <span>标题</span>
+          <span @click='close'>X</span>
+        </div>
+
+        <div class='mid'>
+          <slot></slot>
+        </div>
+
+        <div class='bot'>
+          <span @click='confirm'>确定</span>
+        </div>
+      </div>
+      `,
+      methods: {
+        close() {
+          this.$emit('close', '0')
+        },
+        confirm() {
+          this.$emit('confirm', '1')
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: false,
+        username: '',
+        password: ''
+      },
+      methods: {
+        showModel() {
+          this.show = true
+        },
+        close(res) {
+          console.log(res)
+          this.show = false
+          this.username = ''
+        },
+        confirm(res) {
+          console.log(res)
+          this.show = false
+          this.username = ''
+          ///
+        }
+      }
+    })
+  </script>
+
+
+</body>
+</html>

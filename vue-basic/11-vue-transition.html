@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+  <style>
+    /* 过渡动画 */
+    .xxx-enter-active, .xxx-leave-active {
+      transition: opacity .5s;
+    }
+    .xxx-enter, .xxx-leave-to {
+      opacity: 0;
+    }
+
+    /* 侦动画 */
+    .bounce-enter-active {
+      animation: bounce-in .5s;
+    }
+    .bounce-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 1.5s;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- 使用自定义的过渡动画 -->
+    <button @click='show1=!show1'>显示/隐藏</button>
+    <transition name='xxx'>
+      <div v-show='show1'>
+        <h1>我是用来演示动画的-1</h1>
+      </div>
+    </transition>
+
+    <hr>
+
+    <!-- 使用自定义的keyframe侦动画 -->
+    <button @click='show4=!show4'>显示/隐藏</button>
+    <transition name='xxx'>
+      <div v-show='show4'>
+        <h1>我是用来演示动画的-5</h1>
+      </div>
+    </transition>
+
+
+    <hr>
+
+    <!-- 使用animate.css动画，工作中常用 -->
+    <button @click='show2=!show2'>显示/隐藏</button>
+    <transition
+      enter-active-class="animated tada"
+      leave-active-class="animated bounceOutRight">
+      <div v-show='show2'>
+        <h1>我是用来演示动画的-2</h1>
+      </div>
+    </transition>
+
+    <hr>
+
+    <!-- 学习使用mode属性 -->
+    <!-- 注意要给元素指定key值 -->
+    <button @click='show3=!show3'>显示/隐藏</button>
+    <transition name='fade' mode='out-in'>
+      <div v-if='show3' key='1'>
+        <h1>我是用来演示动画的-3</h1>
+      </div>
+      <div v-else key='2'>
+        <h1>我是用来演示动画的-4</h1>
+      </div>
+    </transition>
+
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show1: true,
+        show2: true,
+        show3: true,
+        show4: true
+      }
+    })
+  </script>
+
+</body>
+</html>

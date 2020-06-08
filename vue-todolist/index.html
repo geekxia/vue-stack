@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TodoList</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div id='app' class="app">
+
+    <!-- 导航条 -->
+    <div class="app_bar">
+      <div>
+        <span>TODOS</span>
+        <input
+          type="text"
+          v-model.trim='todo'
+          @keyup.enter='confirm'
+          placeholder="添加todos">
+      </div>
+    </div>
+
+    <!-- 正在进行的任务列表 -->
+    <!-- 当v-for循环中要使用v-model时，外层的数组必须是[{},{}],不能是[1,2,3] -->
+    <div class="panel">
+      <div class="panel_title">
+        <span>正在进行</span>
+        <span v-text='list1.length'></span>
+      </div>
+      <div class="panel_list" v-for="(item, idx) in list1">
+        <span @click='transform(idx, "up")'></span>
+        <span>
+          <input v-model='item.title'></input>
+        </span>
+        <span @click='remove(idx, "up")'></span>
+      </div>
+    </div>
+
+
+    <!-- 已经完成的任务列表 -->
+    <div class="panel">
+      <div class="panel_title">
+        <span>已经完成</span>
+        <span v-text='list2.length'></span>
+      </div>
+      <!-- 一行 -->
+      <div class="panel_list panel_list-done" v-for="(item,idx) in list2">
+        <span @click='transform(idx)'></span>
+        <span>
+          <input v-model='item.title'></input>
+        </span>
+        <span @click='remove(idx)'></span>
+      </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="app_bot">此todos由1916班制作完成</div>
+  </div>
+
+
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src='./todo.js'></script>
+
+</body>
+</html>

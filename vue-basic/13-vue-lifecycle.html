@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+    <h1 v-text='msg'></h1>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 测试生命周期
+    // app.msg = "hello world"
+    // app.$destroy()
+
+    // 虚拟DOM与Diff算法（图解）
+    // (1) 把树按照层级分解
+    // (2) 同key值对比
+    // (3) 同组件对比
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello'
+      },
+      beforeCreate: function() {
+        console.log('beforeCreate')
+      },
+      created: function() {
+        console.log('created')
+      },
+      beforeMount: function() {
+        console.log('beforeMount')
+      },
+      mounted: function() {
+        console.log('mounted')
+      },
+      beforeUpdate: function() {
+        console.log('beforeUpdate')
+      },
+      updated: function() {
+        console.log('updated')
+      },
+      beforeDestroy: function() {
+        console.log('beforeDestroy')
+      },
+      destroyed: function() {
+        console.log('destroyed')
+      }
+    })
+  </script>
+
+</body>
+</html>

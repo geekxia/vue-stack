@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+  html,body {
+    padding: 0;
+    margin: 0;
+    background: #eee;
+    width: 100%;height: 100%;overflow: hidden;
+  }
+  /* layout布局组件 */
+  .header {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 60px;background:rgb(0,21,41);color:white;
+  }
+  .aside {
+    position: absolute; top:60px;
+    left: 0; bottom: 0;width: 135px;
+    background:rgb(0,21,41);color:white;
+  }
+  .main {
+    position: absolute;top:60px;left:135px;right: 0;
+    bottom: 35px;background-color:white;
+  }
+  .footer {
+    position: absolute;bottom: 0;left: 135px;
+    right: 0;height: 35px;
+    background:rgb(240,242,245);
+  }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+<body>
+
+  <div id='app'>
+    <my-layout>
+
+      <!-- 这个插槽的名字叫 default -->
+      <template v-slot:default='scope'>
+        <h4 v-text='scope.msg'></h4>
+      </template>
+
+      <!-- v-slot可以简写成 # -->
+      <template #aside='scope'>
+        <h4 v-text='scope.info'></h4>
+      </template>
+
+      <!-- slot传值，仅在自己的slot中有效，有作用域限制 -->
+      <template v-slot:main='scope'>
+        <h4 v-text='scope.item.a'></h4>
+        <h4 v-text='scope.item.b'></h4>
+      </template>
+
+      <!-- 这个插槽的名字叫 footer -->
+      <template v-slot:footer>
+        <h4>底部</h4>
+      </template>
+
+    </my-layout>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-layout', {
+      data: function() {
+        return {
+          msg: '小明',
+          info: 'Hello',
+          item: {
+            a: '1111',
+            b: '2222'
+          }
+        }
+      },
+      template: `
+      <div class='container'>
+
+        <div class='header'>
+          <slot v-bind:msg='msg'></slot>
+        </div>
+
+        <div class='aside'>
+          <slot name='aside' :info='info'></slot>
+        </div>
+
+        <div class='main'>
+          <slot name='main' :item='item'></slot>
+        </div>
+
+        <div class='footer'>
+          <slot name='footer'></slot>
+        </div>
+
+      </div>
+      `
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {}
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+    <!-- 过滤器可以用在两个地方：双花括号插值和 v-bind 表达式 -->
+    <h1>{{no | student}}</h1>
+    <h1>{{money | rmb}}</h1>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 全局过滤器，一次定义，所有组件中都可以用
+    Vue.filter('rmb', function(value) {
+      return '￥'+value
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        no: '19161137878',
+        money: 10500
+      },
+      // 局部过滤器
+      filters: {
+        student: function(value) {
+          return 'SZ'+value
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

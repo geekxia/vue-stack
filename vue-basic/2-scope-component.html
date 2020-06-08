@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app1'>
+    <my-home></my-home>
+    <my-user></my-user>
+  </div>
+
+  <hr>
+
+  <div id='app2'>
+    <my-home></my-home>
+    <my-user></my-user>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    var app1 = new Vue({
+      el: '#app1',
+      data: {},
+      components: {
+        'my-home': {
+          template: `<h1>局部组件</h1>`
+        },
+        'my-user': {
+          template: `<div><button @click='click'>用户</button></div>`,
+          methods: {
+            click() {
+              alert('这是局部组件的点击事件')
+            }
+          }
+        }
+      }
+    })
+
+    var app2 = new Vue({
+      el: '#app2',
+      data: {},
+      components: {
+        'my-home': {
+          template: `<h1>局部组件</h1>`
+        },
+        'my-user': {
+          template: `<div><button>用户</button></div>`
+        }
+      }
+    })
+  </script>
+</body>
+</html>

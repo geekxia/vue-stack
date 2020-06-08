@@ -1,0 +1,106 @@
+.app {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.head {
+  line-height: 60px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 加载中 */
+.loading {
+  text-align: center;
+  padding-top: 30px;
+}
+.loading img {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+}
+
+
+/* 文章列表项 */
+.article {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(245,245,245,1);
+  cursor: pointer;
+}
+.article:hover {
+  background: rgba(245,245,245,1);
+}
+.article>img {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.article>span {
+  float: left;
+}
+.article div.num {
+  color: #666666;
+  float: left;
+  width: 90px;
+  text-align:left;
+  margin-left: 10px;
+}
+.article span.label {
+  height: 20px;
+  padding: 0 2px;
+  color: white;
+  background: #80bd01;
+  line-height: 20px;
+  margin: 15px 10px;
+}
+.article span.title {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  width: 480px;
+}
+.article span.time {
+  float: right;
+  font-size: 12px;
+}
+
+
+/* 分页 */
+.pages {
+  line-height: 50px;
+  text-align: right;
+}
+.pages span {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+
+/* 分类筛选 */
+.cates {
+  padding: 5px 20px;
+  background-color: rgb(246, 246, 246);
+}
+.cates span {
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  margin-right: 25px;
+  color: rgb(128, 189, 1);
+  font-size: 14px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.cates span.on {
+  background-color: rgb(128, 189, 1);
+  color: white;
+  border-radius: 3px;
+}

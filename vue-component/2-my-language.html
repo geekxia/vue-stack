@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .language span {
+      line-height: 30px;
+      display: inline-block;
+      padding: 0 10px;
+      border:1px solid #ccc;
+      cursor: pointer;
+    }
+    .language span.on {
+      background: orange;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='app'>
+
+    <my-language v-model='language'></my-language>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-language', {
+      props: {
+        value: {
+          type: String,   // 父组件向子组件传值，使用props
+          require: false,
+          default: '1'
+        }
+      },
+      data: function() {   // 使用工厂模式，返回data，实现深拷贝
+        return {
+          list: [
+            {id: 1,lg:'中文'},
+            {id: 2,lg:'英文'},
+            {id: 3,lg:'韩语'},
+            {id: 4,lg:'日文'}
+          ]
+        }
+      },
+      template: `<div class='language'>
+        <span
+          v-for='(item,idx) in list'
+          :class='{"on":item.id == value}'
+          @click='change(item.id)'
+          v-text='item.lg'></span>
+      </div>`,
+      methods: {
+        change(id) {
+          // 事件通信
+          // 触发父组件传递过来的自定义事件，并把表单变化的值返回给父组件
+          this.$emit('input', id+'')  // 把id转化成字符串类型
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        language: '1'
+      }
+    })
+  </script>
+
+</body>
+</html>

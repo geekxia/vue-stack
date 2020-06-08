@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <style media="screen">
+    .swiper-container {
+        width: 600px;
+        height: 300px;
+    }
+    .swiper-container img {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="swiper-container">
+    <!-- 固定写法 -->
+    <div class="swiper-wrapper">
+        <!-- 每一页 -->
+        <div class="swiper-slide">
+          <img src="./img/1.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="./img/2.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="./img/3.png" alt="">
+        </div>
+    </div>
+    <!-- 页码 -->
+    <div class="swiper-pagination"></div>
+
+    <!-- 左右按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- 进度条 -->
+    <div class="swiper-scrollbar"></div>
+  </div>
+
+
+  <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+  <script>
+
+  // 使用方法
+  // 引入样式文件和js文件
+  // 构建页面结构
+  // 实例化swiper，各种配置参数
+
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+
+    // 指定页面的挂载节点
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // 指定左右箭头的挂载节点
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // 指定进度条的挂载节点
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })
+  </script>
+
+</body>
+</html>

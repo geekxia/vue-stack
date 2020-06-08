@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+    <input type="text" id='input'><h1 id='msg'></h1>
+  </div>
+  <script>
+    var app = {}
+    // 把普通对象的定义，转化成setter/getter方式进行对象定义
+    Object.defineProperty(app, 'msg', {
+      get: function() {
+        return value
+      },
+      set: function(arg) {
+        value = arg
+        // 在setter操作里面，通知监听器，更新页面
+        watch(value)
+      }
+    })
+    // 当页面数据发生变化时，更新对象，触发setter操作
+    document.getElementById('input').addEventListener('keyup', function(e){
+      app.msg = e.target.value
+    })
+    // 监听器
+    function watch(value) {
+      document.getElementById('msg').innerHTML = value
+    }
+  </script>
+
+</body>
+</html>

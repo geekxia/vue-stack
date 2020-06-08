@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+    <my-radio v-model='payType'></my-radio>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-radio', {
+      props: {
+        value: {
+          type: String,
+          require: false,
+          default: '1'
+        }
+      },
+      template: `
+      <div>
+        <div>
+          <input type="radio" name='pay' value='1' :checked='value=="1"' @change='change' />
+          <span>微信支付</span>
+        </div>
+        <div>
+          <input type="radio" name='pay' value='2' :checked='value=="2"' @change='change' />
+          <span>支付宝支付</span>
+        </div>
+      </div>`,
+      methods: {
+        change(e) {
+          // 子组件表单的值，发生变化时，通过事件通信的方式，把值返回给父组件
+          this.$emit('input', e.target.value)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        payType: '2'
+      }
+    })
+  </script>
+
+</body>
+</html>

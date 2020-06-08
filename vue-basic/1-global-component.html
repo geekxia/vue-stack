@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <div id='app1'>
+    <my-global-component></my-global-component>
+  </div>
+
+  <hr>
+
+  <div id='app2'>
+    <my-global-component></my-global-component>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+
+    // 全局组件
+    Vue.component('my-global-component', {
+      template: `<h1>全局组件</h1>`
+    })
+
+    var app1 = new Vue({
+      el: '#app1'
+    })
+
+    var app2 = new Vue({
+      el: '#app2'
+    })
+  </script>
+</body>
+</html>

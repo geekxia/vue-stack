@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .app {
+      display: flex;
+    }
+    .app div {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='app' class='app'>
+    <div>
+      <child-a></child-a>
+    </div>
+    <div>
+      <child-b></child-b>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 事件总线，通过“订阅-发布”模式实现组件之间的直接通信
+    var bus = new Vue()
+    // bus.$emit('频道')  发射消息
+    // bus.$on('频道')    收到消息
+
+    Vue.component('child-a', {
+      data: function() {
+        return {
+          msg: '',
+          html: ''
+        }
+      },
+      template:`
+      <div>
+        <input type="text" v-model='msg' @keyup.enter='send'>
+        <button @click='send'>发送</button>
+        <div v-html='html'></div>
+      </div>
+      `,
+      methods: {
+        send() {
+          // 发送消息
+          bus.$emit('childA', this.msg)
+          this.msg = ''
+        }
+      },
+      created() {
+        var that = this
+        bus.$on('childB', function(msg) {
+          that.html += '<div>B说：'+msg+'</div>'
+        })
+      }
+    })
+
+    Vue.component('child-b', {
+      data: function() {
+        return {
+          msg: '',
+          html: ''
+        }
+      },
+      template:`
+      <div>
+        <input type="text" v-model='msg' @keyup.enter='send'>
+        <button @click='send'>发送</button>
+        <div v-html='html'></div>
+      </div>
+      `,
+      methods: {
+        send() {
+          bus.$emit('childB', this.msg)
+          this.msg = ''
+        }
+      },
+      created() {
+        var that = this
+        bus.$on('childA', function(msg) {
+          that.html += '<div>A说：'+msg+'</div>'
+        })
+      }
+    })
+
+    var app = new Vue({
+      el: '#app'
+    })
+  </script>
+
+</body>
+</html>

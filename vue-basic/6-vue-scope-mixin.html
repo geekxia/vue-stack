@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app1'>
+    <h1 v-text='msg'></h1>
+    <h1 v-text='username'></h1>
+  </div>
+
+  <hr>
+
+  <div id='app2'>
+    <h1 v-text='username'></h1>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    // 局部混入
+    var mixin = {
+      created() {
+        console.log('created')
+      },
+      mounted() {
+        console.log('mounted')
+      },
+      data: function() {
+        return {
+          msg: 1
+        }
+      },
+      methods: {
+        click() {
+          alert('局部的mixin的click方法')
+        }
+      }
+    }
+    // 局部混入
+    var obj = {
+      data: function() {
+        return {
+          username: '1916'
+        }
+      }
+    }
+
+    var app1 = new Vue({
+      el: '#app1',
+      mixins: [mixin, obj]
+    })
+
+    var app2 = new Vue({
+      el: '#app2',
+      mixins: [obj]
+    })
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+
+    <my-input v-model='username'></my-input>
+
+    <button @click='submit'>提交</button>
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-input', {
+      props: {
+        value: {
+          type: String,
+          require: false,
+          default: ''
+        }
+      },
+      template: `
+      <div style='display:inline-block;'>
+        <input type="text" :value="value" @input='$emit("input", $event.target.value)'>
+      </div>`
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        username: ''
+      },
+      methods: {
+        submit() {
+          alert(this.username)
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

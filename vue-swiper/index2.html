@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
+
+<style>
+  .swiper-container {
+      width: 600px;
+      height: 300px;
+  }
+
+  .swiper-slide img{
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+    <div id="box">
+
+       <qf-swiper>
+         <!-- slot -->
+         <div class="swiper-slide" v-for="data in datalist">
+           <img :src="data.imgUrl" />
+         </div>
+       </qf-swiper>
+
+    </div>
+
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <script type="text/javascript">
+
+        // swiper初始化
+        function initSwiper() {
+          new Swiper ('.swiper-container',{
+            pagination: {
+               el: '.swiper-pagination',
+             },
+            loop: true,
+            autoplay: {
+              delay: 1000,
+              disableOnInteraction: false,
+            }
+          })
+        }
+
+        Vue.component("qf-swiper",{
+          template:
+          `<div class="swiper-container">
+             <div class="swiper-wrapper">
+               <slot></slot>
+           </div>
+           <!-- 页码 -->
+           <div class="swiper-pagination"></div>
+          </div>`,
+          mounted() {
+
+          },
+          updated() {
+            // initSwiper()
+          }
+        })
+
+
+        var vm = new Vue({
+          el:"#box",
+          data:{
+            datalist:[]
+          },
+          mounted: function() {
+            var that = this
+            axios({
+              url:"https://m.maizuo.com/gateway?type=2&cityId=110100&k=97815",
+              method: 'GET',
+              headers:{
+                'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"154277371928424093566579"}',
+                'X-Host': 'mall.cfg.common-banner'
+              }
+            }).then(res=>{
+              console.log(res.data);
+              this.datalist= res.data.data
+            }).catch(function(err) {
+              console.log('请求失败', err)
+            }).then(function() {
+              // 总是会执行
+            })
+          },
+          updated(){
+            initSwiper()
+
+          }
+        })
+
+    </script>
+</body>
+</html>

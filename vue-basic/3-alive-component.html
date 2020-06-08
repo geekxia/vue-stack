@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+    }
+    .app {
+      width: 450px;
+      height: 100%;
+      border: 1px solid #999999;
+      position: relative;
+    }
+    .tabs {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      line-height: 60px;
+      display: flex;
+    }
+    .tabs span {
+      flex: 1;
+      text-align: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id='app' class='app'>
+
+    <!-- 第一种实现tab选项卡的方式 -->
+    <!-- 当Tab切换时，组件的状态会重置 -->
+    <!-- <div>
+      <my-home v-if='curPage==1'></my-home>
+      <my-find v-else-if='curPage==2'></my-find>
+      <my-user v-else></my-user>
+    </div> -->
+
+    <!-- 使用动态组件实现tab选项卡 -->
+    <!-- 当Tab切换时，组件的状态会保留 -->
+    <keep-alive>
+      <component :is='comp'></component>
+    </keep-alive>
+
+
+    <div class="tabs">
+      <span @click='tabChange("my-home")'>首页</span>
+      <span @click='tabChange("my-find")'>发现</span>
+      <span @click='tabChange("my-user")'>我</span>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        curPage: 1,
+        comp: 'my-home'
+      },
+      components: {
+        'my-home': {
+          data: function() {
+            return {
+              home: ''
+            }
+          },
+          template: `
+          <div>
+            <h3>首页</h3>
+            <input type="text" v-model='home'>
+          </div>
+          `
+        },
+        'my-find': {
+          data: function() {
+            return {
+              find: ''
+            }
+          },
+          template: `
+          <div>
+            <h3>发现</h3>
+            <input type="text" v-model='find'>
+          </div>
+          `
+        },
+        'my-user': {
+          data: function() {
+            return {
+              user: ''
+            }
+          },
+          template: `
+          <div>
+            <h3>我</h3>
+            <input type="text" v-model='user'>
+          </div>
+          `
+        }
+
+      },
+      methods: {
+        tabChange(name) {
+          // this.curPage = idx
+          this.comp = name
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

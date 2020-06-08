@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+
+    <div>
+      当前页面变化了<span v-text='count'></span>次
+    </div>
+
+    <hr>
+    <input type="text" v-model='firstname'>
+    <input type="text" v-model='lastname'>
+    <h3 v-text='fullname'></h3>
+
+    <hr>
+
+    <input type="text" v-model.number='price'>
+    <input type="text" v-model.number='num'>
+    <h3 v-text='total'></h3>
+
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        firstname: '',
+        lastname: '',
+        price: 0,
+        num: 0,
+        count: 0
+      },
+      computed: {
+        fullname () {
+          return this.firstname + ' ' + this.lastname
+        },
+        total () {
+          return this.price * this.num
+        }
+      },
+      watch: {
+        // firstname (val) {
+        //   console.log('firstname 发生了变化', val)
+        // },
+        // lastname (val) {
+        //   console.log('lastname 发生了变化', val)
+        // },
+        fullname (val) {
+          // console.log('fullname 发生了变化', val)
+          this.count++
+        },
+        total (val) {
+          this.count++
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

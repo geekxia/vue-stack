@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .item {
+      background: #ccc;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='app'>
+    <div v-for="(item,idx) in list">
+      <my-list-item :item='item'></my-list-item>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    Vue.component('my-list-item', {
+      props: {
+        item: {
+          type: Object,   // 指定这个属性的数据类型
+          require: true   // 指定这个属性是否必填
+        }
+      },
+      template: `
+        <div class='item'>
+          <span v-text='item.num'></span>
+          <span v-text='item.type'>置顶</span>
+          <span v-text='item.title'>5大主题</span>
+          <span v-text='item.time'>时间</span>
+        </div>
+      `
+    })
+
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        list: [
+        {id:1, num:'1/1349',type:'置顶1',title:'5大主题',time:'2019'},
+        {id:2, num:'1/1349',type:'置顶2',title:'5大主题',time:'2019'},
+        {id:3, num:'1/1349',type:'置顶3',title:'5大主题',time:'2019'},
+        {id:4, num:'1/1349',type:'置顶4',title:'5大主题',time:'2019'},
+        {id:5, num:'1/1349',type:'置顶5',title:'5大主题',time:'2019'},
+        ]
+      }
+    })
+  </script>
+
+</body>
+</html>

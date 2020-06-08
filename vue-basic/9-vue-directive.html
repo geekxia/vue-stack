@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <div id='app'>
+    <input type="text" v-focus>
+    <hr>
+
+    <h3 v-color='"orange"'>我们是1916班</h3>
+    <h3 v-color='"red"'>我们是1916班</h3>
+    <h3 v-color='"#0000ff"'>我们是1916班</h3>
+    <h3 v-color='color'>我们是1916班</h3>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 全局指令
+    Vue.directive('focus', {
+      inserted: function(el) {
+        el.focus()
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        color: '#096720'
+      },
+      // 局部指令
+      directives: {
+        color: {
+          inserted: function(el, binding) {
+            console.log(binding)
+            el.style.color = binding.value
+          }
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>
