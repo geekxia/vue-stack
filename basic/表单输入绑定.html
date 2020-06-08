@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id='app'>
+
+    <!-- 单行文本框 -->
+    <!-- <input type="text" v-model='user' placeholder="请输入用户名"> -->
+    <input type="text" :value='user' @input='change(1, $event)' placeholder="用户名">
+    <br><br>
+
+    <!-- 多行文本框 -->
+    <!-- <textarea rows="8" cols="80" v-model='desc' placeholder="个人简介"></textarea> -->
+    <textarea rows="8" cols="80" :value='desc' @input='change(2, $event)' placeholder="个人简介"></textarea>
+    <br><br>
+
+    <!-- 复选框 -->
+    <!-- <input id='agree' type="checkbox" v-model='checked'>
+    <label for='agree'>我已阅读并同意该协议</label> -->
+    <input id='agree' type="checkbox" :checked='checked' @change='change(3,$event)'>
+    <label for='agree'>我已阅读并同意该协议</label>
+    <br><br>
+
+    <!-- 复选框 -->
+    <!-- <span>我的兴趣有：</span>
+    <input type="checkbox" id='f1' value='1' v-model='favChecked'><label for='f1'>读书</label>
+    <input type="checkbox" id='f2' value='2' v-model='favChecked'><label for='f2'>编程</label>
+    <input type="checkbox" id='f3' value='3' v-model='favChecked'><label for='f3'>篮球</label>
+    <input type="checkbox" id='f4' value='4' v-model='favChecked'><label for='f4'>越野</label> -->
+
+    <!-- <span>我的兴趣有：</span>
+    <span v-for='fav in favList' :key='fav.id'>
+      <input :id='"f"+fav.id' type="checkbox" :value="fav.id" v-model='favChecked'>
+      <label :for='"f"+fav.id' v-text='fav.title'></label>
+    </span> -->
+
+    <span>我的兴趣有：</span>
+    <span v-for='(fav,index) in favList' :key='fav.id'>
+      <input type="checkbox" id='"f"+fav.id' value='fav.id' :checked='fav.checked' @change='change(4,$event,index)'><label for='f1'>读书</label>
+    </span>
+    <br><br>
+
+
+    <!-- 单选按钮 -->
+    <!-- <div>
+      <input type="radio" id='s1' value="1" v-model='gender'><label for='s1'>男</label>
+      <input type="radio" id='s2' value="2" v-model='gender'><label for='s1'>女</label>
+    </div> -->
+
+    <div>
+      <input type="radio" id='s1' value="1" :checked='gender==1' @change='change(5,$event,1)'><label for='s1'>男</label>
+      <input type="radio" id='s2' value="2" :checked='gender==2' @change='change(5,$event,2)'><label for='s1'>女</label>
+    </div>
+    <br>
+
+
+    <!-- 选择框 -->
+    <div>
+      <select v-model='selected'>
+        <option value="1">买一送一</option>
+        <option value="2">返现100元</option>
+        <option value="3">享受85折</option>
+        <option value="4">送50积分</option>
+      </select>
+    </div>
+    <br>
+
+    <div>
+      <select multiple v-model='selectedArr'>
+        <option value="1">买一送一</option>
+        <option value="2">返现100元</option>
+        <option value="3">享受85折</option>
+        <option value="4">送50积分</option>
+      </select>
+    </div>
+    <br>
+
+    <div>
+      <select multiple @change='change(6,$event)'>
+        <option v-for='sale in saleList' :key='sale.id' selected='bol' v-text='sale.title'></option>
+      </select>
+    </div>
+
+
+
+
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        user: '',
+        desc: '',
+        checked: true,
+        favList: [{id:1,title:'读书'},{id:2,title:'编程'},{id:3,title:'篮球'},{id:4,title:'越野'}],
+        favChecked: [1,4],
+        gender: 1,
+        selected: 4,
+        saleList: [{id:1,title:'买一送一'},{id:2,title:'返现100元'},{id:3,title:'享受85折'},{id:4,title:'送50积分'}],
+        selectedArr: [1,2],
+        bol: false
+      },
+      methods: {
+        change: function(who, e, index) {
+          switch (who) {
+            case 1:
+              this.user = e.target.value
+              break;
+            case 2:
+              this.desc = e.target.value
+              break;
+            case 3:
+              console.log(e.target.checked)
+              break;
+            case 4:
+              console.log(e, index)
+              this.favList[index].checked = e.target.checked
+              break;
+            case 5:
+              this.gender = e.target.value
+              break;
+            case 6:
+              console.log(e.target.value)
+              break;
+            default:
+
+          }
+
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

@@ -9,19 +9,22 @@
 <body>
 
   <div id='app'>
-    <input type="text" id='input'><h1 id='msg'></h1>
+    <input type="text" id='input'>
+    <h1 id='msg'></h1>
   </div>
   <script>
     var app = {}
+    var msg = ''
     // 把普通对象的定义，转化成setter/getter方式进行对象定义
     Object.defineProperty(app, 'msg', {
       get: function() {
-        return value
+        return msg
       },
       set: function(arg) {
-        value = arg
+        msg = arg
         // 在setter操作里面，通知监听器，更新页面
-        watch(value)
+        watch(msg)
+        console.log('setter')
       }
     })
     // 当页面数据发生变化时，更新对象，触发setter操作
@@ -30,6 +33,7 @@
     })
     // 监听器
     function watch(value) {
+      document.getElementById('input').value = value
       document.getElementById('msg').innerHTML = value
     }
   </script>

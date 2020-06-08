@@ -1,3 +1,8 @@
+<div>
+
+  <h1>响应式原理</h1>
+</div>
+
 <script type="text/javascript">
 
   // 第一种定义对象的方式
@@ -10,22 +15,24 @@
 
   // 第二种定义对象的方式
   var obj2 = {}
+  var msg = 1
+  var foo = 2
   Object.defineProperty(obj2, 'msg', {
+    configurable: true,
+    enumerable: true,
     get: function() {
-      return value
+      return msg
     },
     set: function(arg) {
-      value = arg
+      msg = arg
     }
   })
-  Object.defineProperty(obj2, 'name', {
+  Object.defineProperty(obj2, 'foo', {
     get: function() {
-      console.log('触发了getter')
-      return value
+      return foo
     },
     set: function(arg) {
-      value = arg
-      console.log('触发了setter')
+      foo = arg
     }
   })
 
