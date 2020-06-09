@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div id='app'>
+    <!-- 一、文本类指令 -->
+
+    <!-- 文档插值，如果能用v-text，尽量不要使用{{}} -->
+    <!-- <h3>{{msg}}</h3> -->
+    <!-- <h3 v-text='msg'></h3> -->
+    <!-- 指令的值是表达式，一定不能写成js语句 -->
+    <!-- <h3 v-text='count+100'></h3> -->
+    <!-- 渲染HTML片段 -->
+    <!-- <h3 v-html='article'></h3> -->
+    <!-- 只渲染一次 -->
+    <!-- <h3 v-once>{{count}}</h3> -->
+    <hr>
+
+
+    <!-- 二、动态属性 -->
+
+    <div v-bind:title="title">个人站点</div>
+    <!-- <img :src="good.src" alt="写死的"> -->
+
+    <!-- 动态样式 -->
+    <!-- <div class="box" :class='curColor'></div>
+    <div class="box" :class='{"on": flag}'></div>
+    <div class="box" :class='[!flag ? "on" : "on1"]'></div>
+    <div class="box" :style='{backgroundColor: color}'></div>
+    <div class="box" :style='[styleObj]'></div> -->
+    <hr>
+
+
+    <!-- 三、事件绑定 -->
+    <!-- <button v-on:click='clickHandle'>按钮</button> -->
+    <!-- .stop表示事件修饰符 -->
+    <button @click.stop='clickHandle(count,$event)'>按钮</button>
+
+    <div class="tab">
+      <div :class='{"tabon": tabindex==1}' @click='tabClick(1)'>Tab1</div>
+      <div :class='{"tabon": tabindex==2}' @click='tabClick(2)'>Tab2</div>
+      <div :class='{"tabon": tabindex==3}' @click='tabClick(3)'>Tab3</div>
+      <div :class='{"tabon": tabindex==4}' @click='tabClick(4)'>Tab4</div>
+    </div>
+
+    <input type="text" v-model='money' @keyup.enter.prevent='enterHandle'>
+    <br>
+
+
+    <!-- 四、条件渲染 -->
+    <!-- <div>
+      <span v-if='idx==1'>A</span>
+      <span v-else-if='idx==2'>B</span>
+      <span v-else-if='idx==3'>C</span>
+      <span v-else-if='idx==4'>D</span>
+      <span v-else>E</span>
+    </div> -->
+
+    <div>
+      <span v-show='bol'>A</span>
+      <span v-show='!bol'>B</span>
+    </div>
+
+
+    <!-- 五、列表渲染 -->
+    <!-- 数组渲染 -->
+    <div>
+      <div v-for='(item,index) in list' :key='index'>
+        <span v-text='index'></span>
+        <span>-</span>
+        <span v-text='item.id'></span>
+        <span>-</span>
+        <span v-text='item.name'></span>
+      </div>
+    </div>
+    <!-- 对象渲染 -->
+    <div>
+      <div v-for='(value, key, index) in obj'>
+        <span v-text='index'></span>
+        <span>-</span>
+        <span v-text='key'></span>
+        <span>-</span>
+        <span v-text='value'></span>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello world',
+        count: 1,
+        article: `<div>
+          <h1>标题</h1>
+          <img src="http://m.360buyimg.com/mobilecms/s376x240_jfs/t1/49601/16/12206/115887/5d91b4d5E34709952/aba2bcb4855e6e52.png!q70.jpg.dpg"></img>
+        </div>`,
+        title: '自定义title',
+        good: {
+          name: '手机',
+          src: 'http://m.360buyimg.com/mobilecms/s376x240_jfs/t1/49601/16/12206/115887/5d91b4d5E34709952/aba2bcb4855e6e52.png!q70.jpg.dpg'
+        },
+        curColor: 'on',
+        color: 'red',
+        styleObj: {
+          backgroundColor: 'green'
+        },
+        flag: true,
+        tabindex: 1,
+        money: '',
+        bol: true,
+        idx: 1,
+        list: [
+          {id:1, name:'yuanliang'},
+          {id:2, name:'xiaopeiyang'},
+          {id:3, name:'hubicheng'}
+        ],
+        obj: {
+          a: 100,
+          b: 200,
+          c: 300
+        }
+      },
+      methods: {
+        clickHandle: function(arg, e) {
+          console.log('被点击', arg)
+          console.log(e)
+        },
+        tabClick: function(idx) {
+          console.log(idx)
+          this.tabindex = idx
+        },
+        enterHandle: function() {
+          console.log('1')
+          alert(this.money)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

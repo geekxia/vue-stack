@@ -50,17 +50,19 @@
     <!-- 单选按钮 -->
     <!-- <div>
       <input type="radio" id='s1' value="1" v-model='gender'><label for='s1'>男</label>
-      <input type="radio" id='s2' value="2" v-model='gender'><label for='s1'>女</label>
+      <input type="radio" id='s2' value="2" v-model='gender'><label for='s2'>女</label>
     </div> -->
 
     <div>
-      <input type="radio" id='s1' value="1" :checked='gender==1' @change='change(5,$event,1)'><label for='s1'>男</label>
-      <input type="radio" id='s2' value="2" :checked='gender==2' @change='change(5,$event,2)'><label for='s1'>女</label>
+      <input type="radio" id='s1' value="1" :checked='gender==1' @change='change(5,$event,1)'>
+      <label for='s1'>男</label>
+      <input type="radio" id='s2' value="2" :checked='gender==2' @change='change(5,$event,2)'>
+      <label for='s2'>女</label>
     </div>
     <br>
 
 
-    <!-- 选择框 -->
+    <!-- 下拉选择框 -->
     <div>
       <select v-model='selected'>
         <option value="1">买一送一</option>
@@ -73,24 +75,16 @@
 
     <div>
       <select multiple v-model='selectedArr'>
-        <option value="1">买一送一</option>
-        <option value="2">返现100元</option>
-        <option value="3">享受85折</option>
-        <option value="4">送50积分</option>
+        <option v-for='item in saleList' :value="item.id" v-text='item.title'></option>
       </select>
     </div>
     <br>
 
     <div>
       <select multiple @change='change(6,$event)'>
-        <option v-for='sale in saleList' :key='sale.id' selected='bol' v-text='sale.title'></option>
+        <option v-for='sale in saleList' :value='sale.id' :selected='sale.selected' :key='sale.id' v-text='sale.title'></option>
       </select>
     </div>
-
-
-
-
-
   </div>
 
 
@@ -106,7 +100,12 @@
         favChecked: [1,4],
         gender: 1,
         selected: 4,
-        saleList: [{id:1,title:'买一送一'},{id:2,title:'返现100元'},{id:3,title:'享受85折'},{id:4,title:'送50积分'}],
+        saleList: [
+          {id:1,title:'买一送一'},
+          {id:2,title:'返现100元'},
+          {id:3,title:'享受85折'},
+          {id:4,title:'送50积分'}
+        ],
         selectedArr: [1,2],
         bol: false
       },

@@ -9,7 +9,7 @@
 <body>
 
   <div id='app'>
-    <h1 v-text='msg'></h1>
+    <h1 v-text='msg' @click='click'></h1>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -24,10 +24,36 @@
     // (2) 同key值对比
     // (3) 同组件对比
 
+
+    // <div id='app' style='color:red;'>
+    //   <h1>Hello World.</h1>
+    // </div>
+
+    // var vm = {
+    //   tagName: 'div',
+    //   attr: {
+    //     props: {
+    //       id: 'app'
+    //     },
+    //     styles: {
+    //       color: 'red'
+    //     }
+    //   },
+    //   children: {
+    //     tagName: 'h1',
+    //     children: 'Hello World.'
+    //   }
+    // }
+
     var app = new Vue({
       el: '#app',
       data: {
         msg: 'hello'
+      },
+      methods: {
+        click: function() {
+          console.log(this.msg)
+        }
       },
       beforeCreate: function() {
         console.log('beforeCreate')
