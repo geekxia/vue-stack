@@ -33,7 +33,7 @@
       <div class="panel_list" v-for="(item, idx) in data.undone">
         <span @click='transform(item, "up")'></span>
         <span>
-          <input v-model='item.task' @keyup.enter='edit(item,idx,"up")'></input>
+          <input v-model='item.task' @keyup.enter='edit(item,idx,"up")'/>
         </span>
         <span @click='remove(item)'></span>
       </div>
@@ -50,7 +50,7 @@
       <div class="panel_list panel_list-done" v-for="(item,idx) in data.done">
         <span @click='transform(item)'></span>
         <span>
-          <input v-model='item.task' @keyup.enter='edit(item,idx)'></input>
+          <input v-model='item.task' @keyup.enter='edit(item,idx)'/>
         </span>
         <span @click='remove(item)'></span>
       </div>

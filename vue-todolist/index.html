@@ -33,7 +33,7 @@
       <div class="panel_list" v-for="(item, idx) in list1">
         <span @click='transform(idx, "up")'></span>
         <span>
-          <input v-model='item.title'></input>
+          <input v-model='item.title' />
         </span>
         <span @click='remove(idx, "up")'></span>
       </div>
@@ -50,14 +50,14 @@
       <div class="panel_list panel_list-done" v-for="(item,idx) in list2">
         <span @click='transform(idx)'></span>
         <span>
-          <input v-model='item.title'></input>
+          <input v-model='item.title' />
         </span>
         <span @click='remove(idx)'></span>
       </div>
     </div>
 
     <!-- 底部 -->
-    <div class="app_bot">此todos由1916班制作完成</div>
+    <div class="app_bot">此todos由2001班制作完成</div>
   </div>
 
 
