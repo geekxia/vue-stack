@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+    .language span {
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 15px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .language span.on {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <!-- v-model  =  v-bind:value  v-on:input -->
+    <my-language :list='arr' v-model='selRes'></my-language>
+    <h1>您选择了：<span v-text='arr[selRes-1].title'></span></h1>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="text/javascript">
+    Vue.component('my-language', {
+      props: {
+        list: {
+          type: Array,
+          required: true
+        },
+        value: {
+          type: Number,
+          required: false,  // 非强制的自定义属性
+          default: 1
+        }
+      },
+      template: `
+      <div class='language'>
+        <span
+          v-for='lan in list'
+          :class='{"on": lan.id==value}'
+          :key='lan.id'
+          @click='$emit("input",lan.id)'
+          v-text='lan.title'>
+        </span>
+      </div>
+      `
+    })
+
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        arr: [
+          {id: 1, title:'中文'},
+          {id: 2, title:'英文'},
+          {id: 3, title:'法语'},
+          {id: 4, title:'日语'},
+          {id: 5, title:'德语'}
+        ],
+        selRes: 4
+      }
+    })
+  </script>
+
+</body>
+</html>

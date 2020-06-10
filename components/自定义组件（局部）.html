@@ -37,7 +37,10 @@
             click() {
               alert('这是局部组件的点击事件')
             }
-          }
+          },
+		  mounted: function() {
+			  console.log('user mounted')
+		  }
         }
       }
     })
