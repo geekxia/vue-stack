@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+    .msg {
+      width: 300px;
+      height: 200px;
+      background: #ddd;
+      border-radius: 10px;
+      position: relative;
+    }
+    .msg-header { text-align: center;}
+    .msg-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 35px;
+      line-height: 35px;
+      display: flex;
+    }
+    .msg-footer>span {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+
+    <my-message>
+      <template #default>
+        <div>成功提示</div>
+      </template>
+      <template #body>
+        <h1>恭喜你注册成功</h1>
+      </template>
+      <template #btn>
+        <span>下一步</span>
+      </template>
+    </my-message>
+
+    <br><br>
+
+    <my-message>
+      <template v-slot:default>
+        <div>警告提示</div>
+      </template>
+      <template #body>
+        <h1>这样操作可能有安全风险哦？</h1>
+      </template>
+      <template #btn>
+        <span>确认</span>
+      </template>
+    </my-message>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 插槽 slot
+    Vue.component('my-message', {
+      template: `
+      <div class='msg'>
+        <div class='msg-header'>
+          <slot></slot>
+        </div>
+        <div>
+          <slot name='body'></slot>
+        </div>
+        <div class='msg-footer'>
+          <span>取消</span>
+          <span>
+            <slot name='btn'></slot>
+          </span>
+        </div>
+      </div>
+      `,
+      data: function() {
+        return {
+          foo: 100
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app'
+    })
+  </script>
+
+</body>
+</html>
