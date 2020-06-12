@@ -1,5 +1,5 @@
 .app {
-  width: 900px;
+  width: 750px;
   margin: 0 auto;
 }
 
@@ -78,9 +78,21 @@
   line-height: 50px;
   text-align: right;
 }
-.pages span {
+.pages>span {
   cursor: pointer;
-  padding-left: 10px;
+  /* padding-left: 10px; */
+  display: inline-block;
+  width: 34px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  margin: 0;
+}
+.pages>span.on {
+  background: rgb(128, 189, 1);
+  color: white;
 }
 
 

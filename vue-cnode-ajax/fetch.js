@@ -1,3 +1,4 @@
+// 服务器地址
 var baseUrl = 'https://cnodejs.org/api/v1'
 
 function fetch(url, method, data, callback) {
@@ -6,13 +7,14 @@ function fetch(url, method, data, callback) {
     method: method,
     data: data,
     success: function(res) {
-      console.log(res)
-      if(res.success) {
+      if (res.success) {
         callback && callback(res.data)
+      } else {
+        console.log('ajax 异常',res)
       }
     },
     fail: function(err) {
-      console.log('调接口失败')
+      console.log('ajax error', err)
     }
   })
 }

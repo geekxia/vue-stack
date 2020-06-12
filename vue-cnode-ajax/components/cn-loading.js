@@ -1,13 +1,13 @@
-Vue.component('list-loading', {
+Vue.component('cn-loading', {
   props: {
     show: {
       type: Boolean,
-      require: false,
+      required: false,
       default: false
     }
   },
-  template:`
-  <div class="loading" v-show='show'>
+  template: `
+  <div class="loading" v-if='show'>
     <img src="./static/loading.gif" alt="加载中" />
   </div>
   `

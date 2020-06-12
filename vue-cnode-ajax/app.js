@@ -1,60 +1,56 @@
+// 组件化开发的意义
+// 1、使用第三方组件库可以快速开发
+// 2、便于代码复用和维护
+
 var app = new Vue({
   el: '#app',
   data: {
-    page: 1,  // 控制分页
-    tab: '',  // 用于分类筛选
-    list: [], // 文章列表
-    loaded: true,  // 加载中
+    // 业务需要
     cates: [
-      {id:1, title:'全部', value:''},
-      {id:1, title:'精华', value:'good'},
-      {id:1, title:'分享', value:'share'},
-      {id:1, title:'问答', value:'ask'},
-      {id:1, title:'招聘', value:'job'}
-    ]
-  },
-  mounted() {
-    this.getList()
+      { id: 1, title: '全部', tab: ''},
+      { id: 2, title: '精华', tab: 'good'},
+      { id: 3, title: '分享', tab: 'share'},
+      { id: 4, title: '问答', tab: 'ask'},
+      { id: 5, title: '招聘', tab: 'job'}
+    ],
+    // 接口需要
+    artList: [],  // 文章列表
+    tab: '',      // 控制筛选
+    page: 1,      // 控制分页
+    // 状态、交互需要
+    loaded: true  // 控制“加载中”的显示与隐藏
   },
   watch: {
-    // 侦听器，监听tab的变化，如果变化就重新调接口刷新页面
-    tab (val) {
+    // 监听筛选组件变化，重新调接口
+    tab: function(newVal, oldVal) {
       this.page = 1
+      this.getList()
+    },
+    page: function() {
       this.getList()
     }
   },
+  mounted: function() {
+    this.getList()
+  },
   methods: {
-    // 分页
-    pageHandle(type) {
-      if (type === 'down') {
-        this.page++
-        this.getList()
-      } else {
-        // 页面不能小于1
-        if(this.page===1) {
-          alert('已经是第一页了')
-        } else {
-          this.page--
-          this.getList()
-        }
-
-      }
-    },
-    getList() {
-      // 显示“加载中”
-      this.loaded = false
-      var params = {
-        page: this.page,
-        tab: this.tab,
-        limit: 5,
-        mdrender: false
-      }
+    getList: function() {
       var that = this
-      fetch('/topics', 'GET', params, function(arr) {
-        that.list = arr
-        // 隐藏“加载中”
+      // 调接口开始
+      that.loaded = false
+      var data = {
+        page: this.page,  // 动态的入参
+        tab: this.tab,
+        limit: 5,         // 静态的入参
+        mdrender: 'false'
+      }
+      fetch('/topics', 'GET', data, function(arr) {
+        console.log('app', arr)
+        that.artList = arr
+        // 调接口结束
         that.loaded = true
       })
     }
   }
+
 })
