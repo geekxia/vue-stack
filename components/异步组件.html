@@ -8,27 +8,33 @@
 </head>
 <body>
 
-  <div id='app'>
-    <my-async-component></my-async-component>
+  <div id="app">
+    <sync-child></sync-child>
+    <async-child></async-child>
   </div>
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
 
-    Vue.component('my-async-component', function(resolve, reject) {
-      setTimeout(function(){
+    // 同步组件
+    Vue.component('sync-child', {
+      template: `<div>同步的组件</div>`
+    })
+
+    // 异步组件
+    Vue.component('async-child', function(resolve, reject) {
+      setTimeout(function() {
         resolve({
-          template: `<h1>我是异步组件</h1>`
+          template: `<div>异步的组件</div>`
         })
       }, 5000)
     })
 
+
     var app = new Vue({
-      el: '#app',
-      data: {}
+      el: '#app'
     })
+
   </script>
 
 </body>

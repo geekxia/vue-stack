@@ -8,55 +8,51 @@
 </head>
 <body>
 
-  <div id='app'>
-    <input type="text" id='input' ref='input'>
-    <button type="button" @click='getInputValue'>获取表单的值</button>
-    <hr>
+  <div id="app">
 
-    <h3 ref='title'>我是1916班的学生</h3>
-    <button @click='changeStyle'>改变样式</button>
-    <hr>
-
-    <my-component ref='comp'></my-component>
-    <button @click='handleComponent'>获取子组件的DOM对象</button>
+    <input ref='input' type="text">
+    <button @click='getInputVal'>获取表单值</button>
+    <div ref='box'>box</div>
+    <my-child ref='child' text='2002'></my-child>
 
   </div>
 
-
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    Vue.component('my-component', {
-      template: `<div>我是个组件</div>`,
-      data:function() {
-        return {
-          msg: '我是子组件的msg'
+    // ref
+    Vue.component('my-child', {
+      props: {
+        text: {
+          type: String,
+          required: false,
+          default: ''
         }
       },
+      template: `<div><h1 v-text='text' @click='clickHandle'></h1></div>`,
       methods: {
-        getMsg() {
-          return this.msg
+        clickHandle: function() {
+          var aa = Math.random()
+          this.$emit('change', 1, 2, 3, 4, aa)
+        },
+        getText: function() {
+          console.log('child',this.text)
         }
       }
     })
 
     var app = new Vue({
       el: '#app',
+      data: {
+        count: 0
+      },
       methods: {
-        getInputValue() {
-          // 通过原生的DOM操作获取表单的值
-          // var oInput = document.getElementById('input')
-          // alert(oInput.value)
-          console.log()
-          alert(this.$refs.input.value)
-        },
-        changeStyle() {
-          this.$refs.title.style.color = 'red'
-        },
-        handleComponent() {
-          console.log(this.$refs.comp)
-          // alert(this.$refs.comp.msg)
-          var msg = this.$refs.comp.getMsg()
-          alert(msg)
+        getInputVal: function() {
+          // var val = document.getElementById('input').value
+          // console.log(val)
+          console.log(this.$refs.input.value)
+          this.$refs.box.style.color = 'red'
+          // 使用ref操作子组件
+          this.$refs.child.getText()
         }
       }
     })

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+  <style media="screen">
+
+  /* 进入 */
+  .xxx-enter {
+    opacity: 0;
+    color: blue;
+  }
+  .xxx-enter-active {
+    transition: all 3s;
+  }
+  /* .xxx-enter-to {
+    opacity: 1;
+    color: red;
+  } */
+
+  /* 离开 */
+  /* .xxx-leave {
+    opacity: 1;
+    color: red;
+  } */
+  .xxx-leave-active {
+    transition: all 3s;
+  }
+  .xxx-leave-to {
+    opacity: 0;
+    color: blue;
+  }
+
+
+  </style>
+</head>
+<body>
+
+  <div id="app">
+
+      <button @click="show = !show">点击</button>
+
+      <!-- 自定义动画 -->
+      <!-- 当过渡动画中有多个元素进行显示隐藏切换时，必须加key，否则动画不起作用 -->
+      <!-- mode='in-out'时，先进后出 -->
+      <!-- mode='out-in'时，先出后进 -->
+      <!-- <transition name='xxx' mode='in-out'>
+        <h1 v-if="show" key='1'>AAAAAAA</h1>
+        <h1 v-else key='2'>BBBBBBBB</h1>
+      </transition> -->
+
+
+
+      <!-- 使用animate.css第三方动画库时 -->
+      <transition
+        mode='out-in'
+        enter-active-class='animated tada'
+        leave-active-class='animated zoomOut'>
+        <h1 v-if="show" key='1'>hello</h1>
+        <h1 v-else key='2'>world</h1>
+      </transition>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 过渡动画 <transition></transition>
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: false
+      }
+    })
+  </script>
+</body>
+</html>

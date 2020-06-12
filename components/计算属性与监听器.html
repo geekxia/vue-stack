@@ -8,63 +8,78 @@
 </head>
 <body>
 
-  <div id='app'>
+  <div id="app">
+    <span>First：</span>
+    <input type="text" v-model='first'><br>
 
+    <span>Last：</span>
+    <input type="text" v-model='last'>
+    <h1>全名：<span v-text='full'></span></h1>
+
+    <hr>
+    <!-- 使用计算属性实现 -->
     <div>
-      当前页面变化了<span v-text='count'></span>次
+      <span>单价：</span><input type="text" v-model.number='price'>
     </div>
+    <div>
+      <span>数据：</span><input type="text" v-model.number='num'>
+    </div>
+    <h1>总计：<span v-text='total'></span></h1>
 
     <hr>
-    <input type="text" v-model='firstname'>
-    <input type="text" v-model='lastname'>
-    <h3 v-text='fullname'></h3>
 
-    <hr>
+    <!-- 使用监听器实现 -->
+    <div>
+      <span>单价：</span><input type="text" v-model.number='price1'>
+    </div>
+    <div>
+      <span>数据：</span><input type="text" v-model.number='num1'>
+    </div>
+    <h1>总计：<span v-text='total1'></span></h1>
 
-    <input type="text" v-model.number='price'>
-    <input type="text" v-model.number='num'>
-    <h3 v-text='total'></h3>
 
 
   </div>
 
-
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
+  <script type="text/javascript">
+    // 计算属性：依靠Vue响应式系统，且具有缓存效应，每天重新计算是取声明式变量的最新值
+    // 监听器
     var app = new Vue({
       el: '#app',
       data: {
-        firstname: '',
-        lastname: '',
-        price: 0,
-        num: 0,
-        count: 0
+        first: '',
+        last: '',
+        price: 0,  // 100
+        num: 0,   // 2
+        price1: 0,
+        num1: 0,
+        total1: 0
       },
+      // 计算属性会与一个或多个声明式数据进行关联，如果这些被关联的声明式数据发生变化，计算属性会自动计算
       computed: {
-        fullname () {
-          return this.firstname + ' ' + this.lastname
+        full: function() {
+          var fullname = this.last + ' ' + this.first
+          // 在这里做复杂的运算
+          return fullname
         },
-        total () {
+        total: function() {
           return this.price * this.num
         }
       },
+      // 监听器可以监听data声明式变量和计算属性的变化
       watch: {
-        // firstname (val) {
-        //   console.log('firstname 发生了变化', val)
-        // },
-        // lastname (val) {
-        //   console.log('lastname 发生了变化', val)
-        // },
-        fullname (val) {
-          // console.log('fullname 发生了变化', val)
-          this.count++
+        price1: function(newVal, oldVal) {
+          this.total1 = newVal * this.num1
         },
-        total (val) {
-          this.count++
+        num1: function(newVal, oldVal) {
+          this.total1 = newVal * this.price1
+        },
+        full: function(newVal, oldVal) {
+          console.log('我监听了full的变化，我们准备做点事')
         }
       }
     })
   </script>
-
 </body>
 </html>
